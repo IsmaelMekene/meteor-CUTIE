@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
 from scipy import ndimage
 import cv2
-
+import itertools
 
 
 
@@ -454,6 +454,7 @@ def visualize_bbox_centers(csv_file, desired_shape):
 
 
 
+
 def get_relative_centers(csv_file, desired_shape):
     '''
     This function aims to give back relative position of the center of each bbox on the corresponding image
@@ -461,7 +462,7 @@ def get_relative_centers(csv_file, desired_shape):
         csv_file: the path the csv file
         desired_shape: if the target shape we want for the image is (n,n), desired_dimension = n
     return:
-        show the plot of the numpy array with each bbox and its center 
+        save the update dataframe to csv files 
     '''
     
     receipt = pd.read_csv(csv_file)
@@ -471,26 +472,33 @@ def get_relative_centers(csv_file, desired_shape):
     Xc_list = [] #empty list
     Yc_list = [] #empty list
     ratio = desired_shape/maximum #target over actual
+    minisc_no_special_char = []
 
     for i in range(len(receipt)): #iterate over the length of the csv file
         Xc = int(ratio*(receipt.iloc[i,2]+receipt.iloc[i,4])/2) #the x coordinate of the center
         Yc = int(ratio*(receipt.iloc[i,3]+receipt.iloc[i,5])/2) #the y coordinate of the center  
+        miniscul = receipt.iloc[i,1].lower() #make it lowercase
+        nochar = ''.join(e for e in miniscul if e.isalnum()) #remove special characters
+        
+
+            
+            
         Xc_list.append(Xc) #append to a list
         Yc_list.append(Yc) #append to a list
         width_and_height.append(maximum) #append to a list
+        minisc_no_special_char.append(nochar)
 
     
     receipt['Xc'] = Xc_list #add this column to the dataframe
     receipt['Yc'] = Yc_list #add this column to the dataframe
     receipt['New_Image_width_and_height'] = width_and_height #add this column to the dataframe
+    receipt['No_char'] = minisc_no_special_char
    
 
     #save each data to a csv file on disk
     receipt.to_csv(f'/home/meteor21/CUTIE_mekene/data/csv_files_with_centers/{receipt.iloc[1,0]}_centers.csv', index = False)
    
     return
-
-
 
 
 def initial_grids(csv_file, grid_size, desired_image_size):
@@ -552,3 +560,253 @@ def initial_grids(csv_file, grid_size, desired_image_size):
     plt.show()
     
     return
+
+
+
+
+
+def printDistances(distances, token1Length, token2Length):
+    '''
+    This function allow to vizualise to distance matrix while computing the Levenshtein distance between two tokens
+    input:
+        distances: the distances 
+        token1Length: the legnth of the first token 
+        token2Length: the legnth of the second token 
+    return:
+        print the distance matrix 
+
+    '''
+    for t1 in range(token1Length + 1):
+        for t2 in range(token2Length + 1):
+            print(int(distances[t1][t2]), end=" ")
+        print()
+        
+        
+def levenshteinDistanceDP(token1, token2):
+    '''
+    This function calculates the Levenshtein distance between two given tokens
+    input:  
+        token1: string
+        token2: string
+    return:
+        distance: the Levenshtein distance between both tokens
+    '''
+    distances = np.zeros((len(token1) + 1, len(token2) + 1))  #empty array 
+
+    for t1 in range(len(token1) + 1):
+        distances[t1][0] = t1
+
+    for t2 in range(len(token2) + 1):
+        distances[0][t2] = t2
+        
+    a = 0
+    b = 0
+    c = 0
+    
+    for t1 in range(1, len(token1) + 1):
+        for t2 in range(1, len(token2) + 1):
+            if (token1[t1-1] == token2[t2-1]):
+                distances[t1][t2] = distances[t1 - 1][t2 - 1]
+            else:
+                a = distances[t1][t2 - 1]
+                b = distances[t1 - 1][t2]
+                c = distances[t1 - 1][t2 - 1]
+                
+                if (a <= b and a <= c):
+                    distances[t1][t2] = a + 1
+                elif (b <= a and b <= c):
+                    distances[t1][t2] = b + 1
+                else:
+                    distances[t1][t2] = c + 1
+
+    #printDistances(distances, len(token1), len(token2))
+    return int(distances[len(token1)][len(token2)])
+
+
+
+def replace_after_Levenshtein(csv_file):
+    '''
+    This is a post processing function.
+    It allows to clean our vocabulary after compution the Levenshtein distances between our interests strings and 
+    they 'correspondings in Glove vocabulary'
+    input:
+        csv_file: the path of the updated csv files
+    return:
+        save new csv file with the modified 'uncleaned to cleaned' words
+    '''
+        
+    receipt = pd.read_csv(csv_file)
+    for i in range(len(receipt)):
+        if receipt.iloc[i,12] == 'tctal' or receipt.iloc[i,12] == 'otal' or receipt.iloc[i,12] == 'txtl' or receipt.iloc[i,12] == 'totl' or receipt.iloc[i,12] == 'fotal':
+            receipt.iloc[i,12] = 'total'
+
+    receipt.to_csv(f'/home/meteor21/CUTIE_mekene/data/csv_files_with_centers/{receipt.iloc[1,0]}_centers.csv', index = False)
+
+
+
+def myGloveDict(glove_file):
+    '''
+    This function loads the glove txt file and create a custom dictionnary.
+    The first key is set to 'mekene' a dummy string that is not in glove and 
+    Its value is set to np.zeros((2OO))
+
+    input:
+        the glove txt file
+
+    return:
+        the dictionnary
+    '''
+    
+    # load the whole embedding into memory
+    embeddings_index = dict()
+    embeddings_index['mekene'] = np.zeros((200))
+    with open(glove_file, 'r') as f:
+
+        for line in tqdm(f):
+            values = line.split()
+            word = values[0]
+            coefs = np.asarray(values[1:], dtype='float32')
+            embeddings_index[word] = coefs
+
+    print('Loaded %s word vectors.' % len(embeddings_index))
+    
+    return embeddings_index
+
+
+
+def replace_after_Glove(csv_file, list_of_glove_file_keys):
+    '''
+    This is also a post processing function that allows to replace all tokens not present in glove to the dummy string 'mekene'
+    input:
+        csv_file: the path of the update csv file
+        list_of_glove_file_keys: list of all the tokens present in glove
+    return:
+        save to a new csv file 
+    '''
+            
+    receipt = pd.read_csv(csv_file)
+    tokens = []
+    
+
+    for i in range(len(receipt)):
+        if receipt.iloc[i,12] not in list_of_glove_file_keys:
+            token = 'mekene'
+        else:
+            token = receipt.iloc[i,12]
+            
+        tokens.append(token)
+     
+    receipt['Tokens'] = tokens 
+
+    receipt.to_csv(f'/home/meteor21/CUTIE_mekene/data/csv_files_replace_after_Glove/{receipt.iloc[1,0]}_centers.csv', index = False)
+   
+    return
+
+
+
+
+def final_grids(csv_file, grid_size, desired_image_size, myglovedico):
+    '''
+    This function aims to return the final grid (numpy array) corresponding to each receipt image.
+    for each token present on the receipt image, its corresponding embedding vector is fill into the grid 
+    By taking in consideration the extrem case where overlap can occur, 
+    Due to the reduced size of the grid compared to the corresponding desired image receipt size.
+    
+    Input:
+        csv_file: the path of the csv file containing infos about the bbox centers 
+        grid_size: if the target shape we want for the grid is (n,n), grid_size = n
+        desired_image_size: if the target shape we want for the image is (P,P), desired_image_size = P
+        myglovedico: our custom dictionnary made up with the dummy string 'mekene' and glove.
+        
+    Return:
+        save the grind(numpy array) with no overlap to npy file on disk
+    '''
+    
+    csv_center = pd.read_csv(csv_file) #read csv file
+    ratio = desired_image_size/grid_size #compute the ratio 
+    orh = np.zeros((int(grid_size),int(grid_size),200)) #0s numpy array
+
+
+    for j in range(len(csv_center)): #iterate over the length of the csv file 
+        
+        #Check if the actual loaction of the center relative to the receipt is empty
+        if np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1,:]) ==0:
+            #if yes, fill it to 1
+            orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1]+=myglovedico[csv_center.iloc[j,-1]]
+
+        #if no, check the right side 
+        elif np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1,:])!=0:
+            if np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)+1:int(csv_center.iloc[j,9]/ratio)+2,:])==0:
+                orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)+1:int(csv_center.iloc[j,9]/ratio)+2]+=myglovedico[csv_center.iloc[j,-1]]
+
+            
+            #if no, check the down side 
+            elif np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)+1:int(csv_center.iloc[j,9]/ratio)+2,:])!=0:
+                if np.mean(orh[int(csv_center.iloc[j,10]/ratio)+1:int(csv_center.iloc[j,10]/ratio)+2,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1,:])==0:     
+                    orh[int(csv_center.iloc[j,10]/ratio)+1:int(csv_center.iloc[j,10]/ratio)+2,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1]+=myglovedico[csv_center.iloc[j,-1]]
+
+                
+                #if no, check the left side 
+                elif np.mean(orh[int(csv_center.iloc[j,10]/ratio)+1:int(csv_center.iloc[j,10]/ratio)+2,int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1,:])!=0:
+                    if np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)-1:int(csv_center.iloc[j,9]/ratio),:])==0:
+                        orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)-1:int(csv_center.iloc[j,9]/ratio)]+=myglovedico[csv_center.iloc[j,-1]]
+                    #if no, check the upper side 
+                    elif np.mean(orh[int(csv_center.iloc[j,10]/ratio):int(csv_center.iloc[j,10]/ratio)+1,int(csv_center.iloc[j,9]/ratio)-1:int(csv_center.iloc[j,9]/ratio),:])!=0:
+                        if np.mean(orh[int(csv_center.iloc[j,10]/ratio)-1:int(csv_center.iloc[j,10]/ratio),int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1,:])==0:
+                            orh[int(csv_center.iloc[j,10]/ratio)-1:int(csv_center.iloc[j,10]/ratio),int(csv_center.iloc[j,9]/ratio):int(csv_center.iloc[j,9]/ratio)+1]+=myglovedico[csv_center.iloc[j,-1]]
+
+
+
+     
+    
+
+
+    np.save(f'/home/meteor21/CUTIE_mekene/data/final_grids/{csv_center.iloc[1,0]}.npy', orh)    
+
+    return
+
+
+
+
+
+def Vizz_ratio_myvoc_in_glovevoc(csv_files_list, glove_file):
+    '''
+    This function aims to draw a camembert diagram in order to vizualize the proportion of 
+    our vocabulary into glove (in terms of ratio)
+    input:
+        csv_files_list: the list of the csv file paths
+        glove_file: the path of the glove_file
+    return:
+        plot the camembert 
+    '''
+
+    listofwords = []
+    for thing in tqdm(csv_files_list):
+        csv_center = pd.read_csv(thing)
+        listofwords.append(list(csv_center['No_char']))
+
+    flatlistofwords = list(itertools.chain(*listofwords))
+
+    lisofkeys = list(myGloveDict(glove_file).keys())
+    print('the length of glove vocab is :',len(lisofkeys))
+
+    my_vocab_not_in_glove = []
+    for word in tqdm(flatlistofwords):
+        if word not in lisofkeys:
+            my_vocab_not_in_glove.append(word)
+
+    print('the total number of words in our vocabulary is:', len(flatlistofwords))
+    print('the number of words in our vocabulary that are not in glove is:', len(my_vocab_not_in_glove))
+    print('the difference is:',len(flatlistofwords)-len(my_vocab_not_in_glove))
+
+    plt.figure(figsize = (8, 8))
+    x = [10684, 2581]
+    plt.pie(x, labels = ['myVocabInGlove', 'myVocabNotInGlove'],
+               colors = ['red', 'blue'],
+               explode = [0, 0.2],
+               autopct = lambda x: str(round(x, 2)) + '%',
+               pctdistance = 0.7, labeldistance = 1.4,
+               shadow = True)
+    plt.legend()
+
+
