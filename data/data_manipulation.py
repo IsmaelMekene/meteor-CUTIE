@@ -1,3 +1,11 @@
+'''
+@Author: Mékéné
+@Github: https://github.com/IsmaelMekene
+@Project: https://github.com/luyanger1799/meteor-CUTIE
+'''
+
+
+
 import numpy as np
 import pandas as pd 
 import glob2
