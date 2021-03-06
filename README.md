@@ -43,4 +43,10 @@ The bright ideal of the grid was mentionned in the original  [CUTIE paper](https
 In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here glove](https://nlp.stanford.edu/projects/glove/).
 
 
+## Models
+
+### DenseASPP
+
+### PSPNet
+
 ## Results
