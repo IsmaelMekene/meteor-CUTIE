@@ -4,12 +4,38 @@ This is a Computer Vision project aiming to create a Convolutional Universal Tex
 ## Readme.md in progress ...
 
 The goal of this project is at the be able to predict on a given receipt tickect, a zone of interest (in our case it is mostly `Total amount`)
-### Installation & Usage
+
+## Installation & Usage
 
 ```
 pip install -r requirements.txt
 ```
 
+## Data Preprocessing & Processing
+
+### Receipt labelling
+
+The initial labelling steps have been done through `google vision ocr` API, in order to store the relative positions of every text areas on each receipt. The raw infos were given back into json format.
+With the `data_manipulation.py` functions, the json files were successfully cleaned so that every original receipt has been reshaped and resized into square (keeping the relative positions of the text ares). And more importantly, for a receipt, its corresponding `mask` was generated.
 
 
-### Results
+<p class="row">
+  
+  <p class="col-md-6 col-lg-4">
+    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png"/>
+  </p>
+
+  <p class="col-md-6 col-lg-4">
+    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/mask1087.png"/>
+  </p>
+
+  <p class="col-md-6 col-lg-4">
+    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/over1087.png"/>
+  </p>
+  
+</p>
+
+  <p align="center">
+
+
+## Results
