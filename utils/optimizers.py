@@ -1,8 +1,7 @@
 """
 The implementation of some optimizers based on Tensorflow.
 
-@Author: OverLordGoldDragon
-@Project: https://github.com/OverLordGoldDragon/keras-adamw
+
 
 """
 from termcolor import colored
