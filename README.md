@@ -3,6 +3,7 @@ This is a Computer Vision project aiming to create a Convolutional Universal Tex
 
 ## Readme.md in progress ...
 
+The goal of this project is at the be able to predict on a given receipt tickect, a zone of interest (in our case it is mostly `Total amount`)
 ### Installation & Usage
 
 ```
