@@ -79,14 +79,22 @@ Following the training, although it was obvious that the model would not perform
 
 The original paper can be found here [pspnet](https://arxiv.org/pdf/1612.01105.pdf), it has been admitted to CVPR.
 
+PSPNet is a semantic segmentation model that utilises a pyramid parsing module that exploits global context information by different-region based context aggregation. The local and global clues together make the final prediction more reliable. In this project, PSPNet have been implemented and a relatively sucessful performance was reached. As visible on the loss graphs, the model seemed to learn. Although PSPNet is not consistent in term of dilated convolutional layers, pretrained PSPNet were found, thanks to [segmentation-models](https://github.com/qubvel/segmentation_models/).
+
 `Train_loss`             |  `Valid_loss`
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_pspnet.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_pspnet.svg)
 
-predictions
+#### predictions
+
+Following the training, predictions have been made on a receipt not from the training dataset. It was visivle that the model had learnt to predict the `zone of interest` (In this case `total amount`).
 
   `new_receipt`             |  `prediction`             |  `reconstructed`
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096raw.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096pred.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096over.png)
 
 ## Results
+
+### Metricts
+
+The principal metric used in this project is `MeanIoU` Intersection Over Union.
