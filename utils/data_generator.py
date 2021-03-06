@@ -1,9 +1,9 @@
 """
 The implementation of Data Generator based on Tensorflow.
 
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
+@Author: Mékéné
+@Github: https://github.com/IsmaelMekene
+@Project: https://github.com/luyanger1799/meteor-CUTIE
 
 """
 from tensorflow.python.keras.preprocessing.image import Iterator
