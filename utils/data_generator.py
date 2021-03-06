@@ -113,3 +113,218 @@ class ImageDataGenerator(object):
                             shuffle=shuffle,
                             seed=seed,
                             data_aug_rate=data_aug_rate)
+    
+    
+    
+    
+class DataGeneratorDensAspp(keras.utils.Sequence):
+    'Generates data for Keras'
+
+
+        #'Initialization'
+    
+    def __init__(self, batch_size, dataframe, input_size = 256, shuffle=True):
+
+
+      self.batch_size = batch_size
+      self.dataframe = dataframe
+      self.shuffle = shuffle  #NOTE that the SHUFFLE is at the beginning of each epoch!!!
+      self.input_size = input_size
+      self.on_epoch_end()
+
+
+    def __len__(self):
+        'Denotes the number of batches per epoch'
+
+        return int(np.floor(len(dataframe) / self.batch_size))
+
+    def __getitem__(self, index):
+        'Generate one batch of data'
+
+        # Find the kth corresponding batchsize dataframe
+        df_temp = dataframe.iloc[index*self.batch_size:(index+1)*self.batch_size, :]
+
+        # Generate data
+        larray = self.name_generation(df_temp, self.batch_size)
+        
+        return larray 
+
+
+    def on_epoch_end(self):
+        'Updates indexes after each epoch'
+
+        self.indexes = np.arange(len(self.dataframe))
+        if self.shuffle == True:    #if shuffle is activated
+            np.random.shuffle(self.indexes)  #randomly generate the index
+
+
+    def name_generation(self, batch_size):
+      'Generates data names following batch_size samples'
+
+      #k = 19
+      n_batch = batch_size  #set number of batch
+   
+
+
+      for k in range(int(len(self.dataframe)/batch_size)):#iterate over the batches 
+      
+        #dataframe for each batch
+        boom = self.dataframe.iloc[k*n_batch:(k+1)*n_batch, :] 
+
+        #empty array of size (batch_size,input,input,3)
+        X = np.empty((batch_size, self.input_size, self.input_size, 3))
+
+        for j, pure in enumerate (boom['lesimages']):
+          al = plt.imread(pure)
+
+        #resizing the images
+
+          #pure_images.append(al)
+          X[j] = al
+
+
+
+        #empty array of size (batch_size,input,input,1)
+        Y_1 = np.empty((batch_size, int(self.input_size), int(self.input_size), 2))
+        
+        for zk, noms in enumerate (boom['lesmasks']):
+
+          
+          ole = plt.imread(noms)
+          
+
+          Y_1[zk] = ole[:,:,0:2]
+
+
+        '''
+
+        '''
+
+        list_de_sortie = []  #empty list
+        list_de_sortie.append(X)  #add the list of images
+        list_de_sortie.append(Y_1)   #add the list of the y
+        
+
+        yield list_de_sortie
+
+
+
+
+
+
+class DataGeneratorPSPNet(keras.utils.Sequence):
+    'Generates data for Keras'
+
+
+        #'Initialization'
+    
+    def __init__(self, batch_size, dataframe, input_size = 256, shuffle=True):
+
+
+      self.batch_size = batch_size
+      self.dataframe = dataframe
+      self.shuffle = shuffle  #NOTE that the SHUFFLE is at the beginning of each epoch!!!
+      self.input_size = input_size
+      self.on_epoch_end()
+
+
+    def __len__(self):
+        'Denotes the number of batches per epoch'
+
+        return int(np.floor(len(dataframe) / self.batch_size))
+
+    def __getitem__(self, index):
+        'Generate one batch of data'
+
+        # Find the kth corresponding batchsize dataframe
+        df_temp = dataframe.iloc[index*self.batch_size:(index+1)*self.batch_size, :]
+
+        # Generate data
+        larray = self.name_generation(df_temp, self.batch_size)
+        
+        return larray 
+
+
+    def on_epoch_end(self):
+        'Updates indexes after each epoch'
+
+        self.indexes = np.arange(len(self.dataframe))
+        if self.shuffle == True:    #if shuffle is activated
+            np.random.shuffle(self.indexes)  #randomly generate the index
+
+
+    def name_generation(self, batch_size):
+      'Generates data names following batch_size samples'
+
+      #k = 19
+      n_batch = batch_size  #set number of batch
+   
+
+
+      for k in range(int(len(self.dataframe)/batch_size)):#iterate over the batches 
+      
+        #dataframe for each batch
+        bom = self.dataframe.iloc[k*n_batch:(k+1)*n_batch, :] 
+
+        #print(boom['newmasks'])
+
+        #empty array of size (batch_size,input,input,3)
+        X = np.empty((batch_size, self.input_size, self.input_size, 3))
+        
+        #myimages = bom['lesimages'].tolist()
+
+        myimages = bom.iloc[:,0].tolist()
+
+        for j, pure in enumerate(myimages):
+          al = plt.imread(pure)
+          ali = cv2.resize(al, (480, 480), interpolation=cv2.INTER_NEAREST)
+
+        #resizing the images
+
+          #pure_images.append(al)
+          X[j] = ali
+
+
+
+        #empty array of size (batch_size,input,input,1)
+        Y_1 = np.empty((batch_size, int(self.input_size), int(self.input_size), 1))
+
+        #mymasks = bom['newmasks'].tolist()
+        
+        mymasks = bom.iloc[:,1].tolist()
+
+        for zk, noms in enumerate(mymasks):
+
+          vide = np.zeros((480,480,1))
+          ole = plt.imread(noms)
+          aloh = cv2.resize(ole, (480, 480), interpolation=cv2.INTER_NEAREST)
+          #print(aloh.shape)
+          #print(type(aloh))
+          aloh_reshaped = aloh[:,:,0]
+          vide[:,:,0] = aloh_reshaped
+       
+          
+          #print(noms)
+
+          Y_1[zk] = vide
+
+
+        '''
+
+        '''
+
+        list_de_sortie = []  #empty list
+        list_de_sortie.append(X)  #add the list of images
+        list_de_sortie.append(Y_1)   #add the list of the y
+        
+
+        yield list_de_sortie
+
+
+
+
+
+
+
+ 
+ 
