@@ -1,9 +1,9 @@
 """
 The implementation of some helpers.
 
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
+@Author: Mékéné
+@Github: https://github.com/IsmaelMekene
+@Project: https://github.com/luyanger1799/meteor-CUTIE
 
 """
 import numpy as np
