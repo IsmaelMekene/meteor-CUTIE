@@ -97,7 +97,7 @@ PSPNet is a semantic segmentation model that utilises a pyramid parsing module t
 
 Following the training, predictions have been made on a receipt not from the training dataset. It was visivle that the model had learnt to predict the `zone of interest` (In this case `total amount`).
 
-  `new_receipt`             |  `prediction`             |  `reconstructed`
+  `new_receipt`             |  `prediction`             |  `reconstruction`
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096raw.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096pred.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096over.png)
 
