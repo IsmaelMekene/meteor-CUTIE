@@ -9,9 +9,14 @@ The goal of this project is at the be able to predict on a given receipt tickect
 
 ```
 pip install -r requirements.txt
+pip install segmentation-models
 ```
 
-## Data Preprocessing & Processing
+## Data, Preprocessing & Processing
+
+### Data
+
+The dataset is consisted of 200 photographic images of receipt, restaurant and also taxi bills. The dataset can be downloaded at [image dataset](https://expressexpense.com/blog/free-receipt-images-ocr-machine-learning-dataset/)
 
 ### Receipt labelling
 
@@ -29,7 +34,7 @@ In addition, getting the precised positions of the zones of interest was not an 
 
 ### Grid
 
-As this project is at the timme, a Spatial and Semantic segmentation, It was quite obvious that the classical image segmentation technics would not be perfect. In order to enconter that, the notion of Semantic had to be introduced to make the model more robust in predicting our zone of interest.
+As this project is at the time, a Spatial and Semantic segmentation, It was quite obvious that the classical image segmentation technics would not be perfect. In order to enconter that, the notion of Semantic had to be introduced to make the model more robust in predicting our zone of interest.
 The bright ideal of the grid was mentionned in the original  [CUTIE paper](https://arxiv.org/abs/1903.12363v4). The concept is simplify to the fact that:
 - The grid would have a propotional size to the original image
 - Each text area (`token`) on the original would be represented by its center on the grid
@@ -44,6 +49,9 @@ In the case of this project, the grids were reduced at the quater size of the or
 
 
 ## Models
+
+The proposed models implemated in the paper [CUTIE paper](https://arxiv.org/abs/1903.12363v4) were several although they all jhave in common the `Pyramidal` structure in addition to the dilated convolutionnal layers.
+In the case of this project, two of these `Pyramidal` models were implemented and the training has been done on both in order to evalute the results.
 
 ### DenseASPP: Dense Atrous Spatial Pyramid Pooling
 [denseaspp](https://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf)
