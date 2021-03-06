@@ -2,9 +2,9 @@
 The implementation of DenseNet121/169/201/264 based on Tensorflow.
 Some codes are based on official tensorflow source codes.
 
-@Author: Yang Lu
-@Github: https://github.com/luyanger1799
-@Project: https://github.com/luyanger1799/amazing-semantic-segmentation
+@Author: Mékéné
+@Github: https://github.com/IsmaelMekene
+@Project: https://github.com/luyanger1799/meteor-CUTIE
 
 """
 from utils.layers import Concatenate
