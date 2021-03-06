@@ -40,7 +40,7 @@ The bright ideal of the grid was mentionned in the original  [CUTIE paper](https
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/centergrid.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1037csv.png)
 
-In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here](https://nlp.stanford.edu/projects/glove/).
+In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here glove](https://nlp.stanford.edu/projects/glove/).
 
 
 ## Results
