@@ -47,7 +47,13 @@ The bright ideal of the grid was mentionned in the original  [CUTIE paper](https
 
 In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here glove](https://nlp.stanford.edu/projects/glove/).
 
+The work on generated the Embedding vectors for each token on the receipts can be problematic in cases where, there are words on the receipts that are not present into to `GLOVE` Vocabulary. To handle this issue, all the words not into `GLOVE` were reset to a unique `dummy token` and to this `dummy token` has been affected an Embedding vector composed just with 0s.
 
+This is a proportion of the project actual vocabulary size proportionally to `GLOVE` vocabulary
+
+<p align="center">
+  <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/ratio.png">
+</p>
 ## Models
 
 The proposed models implemated in the paper [CUTIE paper](https://arxiv.org/abs/1903.12363v4) were several although they all jhave in common the `Pyramidal` structure in addition to the dilated convolutionnal layers.
