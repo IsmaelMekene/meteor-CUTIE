@@ -45,8 +45,9 @@ In the case of this project, the grids were reduced at the quater size of the or
 
 ## Models
 
-### DenseASPP
+### DenseASPP: Dense Atrous Spatial Pyramid Pooling
+[denseaspp](https://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf)
 
-### PSPNet
-
+### PSPNet: Pyramid Scene Parsing Network
+[pspnet](https://arxiv.org/pdf/1612.01105.pdf)
 ## Results
