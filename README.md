@@ -48,6 +48,15 @@ In the case of this project, the grids were reduced at the quater size of the or
 ### DenseASPP: Dense Atrous Spatial Pyramid Pooling
 [denseaspp](https://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf)
 
+`Train_loss`             |  `Valid_loss`
+:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_densaspp.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_denseaspp.svg)
+
 ### PSPNet: Pyramid Scene Parsing Network
 [pspnet](https://arxiv.org/pdf/1612.01105.pdf)
+
+`Train_loss`             |  `Valid_loss`
+:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_pspnet.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_pspnet.svg)
+
 ## Results
