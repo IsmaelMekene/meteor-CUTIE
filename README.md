@@ -54,21 +54,30 @@ The proposed models implemated in the paper [CUTIE paper](https://arxiv.org/abs/
 In the case of this project, two of these `Pyramidal` models were implemented and the training has been done on both in order to evalute the results.
 
 ### DenseASPP: Dense Atrous Spatial Pyramid Pooling
-[denseaspp](https://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf)
+
+The original paper can be found here [denseaspp](https://openaccess.thecvf.com/content_cvpr_2018/papers/Yang_DenseASPP_for_Semantic_CVPR_2018_paper.pdf), it has been admitted to CVPR.
+
+DensASPP simply is named after the backbone model `densenet` and in contrary to it, DenseAspp tkes into account dilation rates.
+In this project, attempt had been made to reach a successful performance of DenseASPP. However, it was quite painful, as due to the small amount of data and the lack of pretrained DenseASPP, it was not possible to achieve much with DenseASPP (In the due time!).
+
 
 `Train_loss`             |  `Valid_loss`
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_densaspp.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_denseaspp.svg)
 
-predictions
+#### predictions
+
+Following the training, although it was obvious that the model would not perform well. a prediction has been made for the sake of the evaluation with PSPNet.
 
 `new_receipt`             |  `prediction`
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096raw.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/lolpred.png)
 
 
+
 ### PSPNet: Pyramid Scene Parsing Network
-[pspnet](https://arxiv.org/pdf/1612.01105.pdf)
+
+The original paper can be found here [pspnet](https://arxiv.org/pdf/1612.01105.pdf), it has been admitted to CVPR.
 
 `Train_loss`             |  `Valid_loss`
 :-------------------------:|:-------------------------:
