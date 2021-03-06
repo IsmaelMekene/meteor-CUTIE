@@ -26,7 +26,7 @@ With the `data_manipulation.py` functions, the json files were successfully clea
   </p>
 
   <p class="col-md-6 col-lg-4">
-    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/mask1087.png"/>
+    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png"/>
   </p>
 
   <p class="col-md-6 col-lg-4">
@@ -36,6 +36,11 @@ With the `data_manipulation.py` functions, the json files were successfully clea
 </p>
 
   <p align="center">
+  
+  
+  `image`             |  `mask`
+:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png)
 
 
 ## Results
