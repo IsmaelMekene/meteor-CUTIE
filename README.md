@@ -27,4 +27,15 @@ In addition, getting the precised positions of the zones of interest was not an 
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/over1087.png)
 
 
+### Grid
+
+As this project is at the timme, a Spatial and Semantic segmentation, It was quite obvious that the classical image segmentation technics would not be perfect. In order to enconter that, the notion of Semantic had to be introduced to make the model more robust in predicting our zone of interest.
+The bright ideal of the grid was mentionned in the original  [CUTIE paper](https://arxiv.org/abs/1903.12363v4). The concept is simplify to the fact that:
+- The grid would have a propotional size to the original image
+- Each text area (`token`) on the original would be represented by its center on the grid
+- Each `token` position would then be filled with the corresponding embedding vector
+
+In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here](https://nlp.stanford.edu/projects/glove/).
+
+
 ## Results
