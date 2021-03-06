@@ -19,28 +19,11 @@ The initial labelling steps have been done through `google vision ocr` API, in o
 With the `data_manipulation.py` functions, the json files were successfully cleaned so that every original receipt has been reshaped and resized into square (keeping the relative positions of the text ares). And more importantly, for a receipt, its corresponding `mask` was generated.
 
 
-<p class="row">
-  
-  <p class="col-md-6 col-lg-4">
-    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png"/>
-  </p>
 
-  <p class="col-md-6 col-lg-4">
-    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png"/>
-  </p>
-
-  <p class="col-md-6 col-lg-4">
-    <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/over1087.png"/>
-  </p>
   
-</p>
-
-  <p align="center">
-  
-  
-  `image`             |  `mask`
-:-------------------------:|:-------------------------:
-![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png)
+  `image`             |  `mask`             |  `zone of interest`
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/over1087.png)
 
 
 ## Results
