@@ -35,6 +35,12 @@ The bright ideal of the grid was mentionned in the original  [CUTIE paper](https
 - Each text area (`token`) on the original would be represented by its center on the grid
 - Each `token` position would then be filled with the corresponding embedding vector
 
+  `centers`             |  `Embedding Vectors`             
+:-------------------------:|:-------------------------:
+![](https://https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/centergrid.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/griddotshow.png)  
+
+
+
 In the case of this project, the grids were reduced at the quater size of the original image. The `Tokenization` and `Embedding` were made with `GLOVE`: Global Vectors for Word Representation, the compressed files for `GLOVE` can be found [here](https://nlp.stanford.edu/projects/glove/).
 
 
