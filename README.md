@@ -49,7 +49,7 @@ In the case of this project, the grids were reduced at the quater size of the or
 
 The work on generated the Embedding vectors for each token on the receipts can be problematic in cases where, there are words on the receipts that are not present into to `GLOVE` Vocabulary. To handle this issue, all the words not into `GLOVE` were reset to a unique `dummy token` and to this `dummy token` has been affected an Embedding vector composed just with 0s.
 
-This is a proportion of the project actual vocabulary size proportionally to `GLOVE` vocabulary
+This is a camembert plot of the project actual vocabulary size proportionally to `GLOVE` vocabulary
 
 <p align="center">
   <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/ratio.png">
