@@ -52,11 +52,24 @@ In the case of this project, the grids were reduced at the quater size of the or
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_densaspp.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_denseaspp.svg)
 
+predictions
+
+`new_receipt`             |  `prediction`
+:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096raw.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/lolpred.png)
+
+
 ### PSPNet: Pyramid Scene Parsing Network
 [pspnet](https://arxiv.org/pdf/1612.01105.pdf)
 
 `Train_loss`             |  `Valid_loss`
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_pspnet.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_pspnet.svg)
+
+predictions
+
+  `new_receipt`             |  `prediction`             |  `reconstructed`
+:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096raw.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096pred.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1096over.png)
 
 ## Results
