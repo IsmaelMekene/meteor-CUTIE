@@ -1,7 +1,7 @@
 # :space_invader: myCUTIE
 This is a Computer Vision project aiming to create a Convolutional Universal Text Information Extractor from scratch. This is at the time a spatial and semantic segmentation project. The implementation of the model has been inspired from the original  [CUTIE paper](https://arxiv.org/abs/1903.12363v4) admited to CVPR 2019 at the Computer Vision and Pattern Recognition subjects.
 
-## Readme.md in progress ...
+## Goal
 
 The goal of this project is at the be able to predict on a given receipt tickect, a zone of interest (in our case it is mostly `Total amount`)
 
@@ -54,6 +54,8 @@ This is a proportion of the project actual vocabulary size proportionally to `GL
 <p align="center">
   <img src="https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/ratio.png">
 </p>
+
+
 ## Models
 
 The proposed models implemated in the paper [CUTIE paper](https://arxiv.org/abs/1903.12363v4) were several although they all jhave in common the `Pyramidal` structure in addition to the dilated convolutionnal layers.
@@ -102,5 +104,7 @@ Following the training, predictions have been made on a receipt not from the tra
 ## Results
 
 ### Metricts
+
+#### in progress ...
 
 The principal metric used in this project is `MeanIoU` Intersection Over Union.
