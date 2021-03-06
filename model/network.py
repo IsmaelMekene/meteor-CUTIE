@@ -6,7 +6,7 @@ The implementation of Network based on Tensorflow.
 @Project: https://github.com/luyanger1799/meteor-CUTIE
 
 """
-from base_models import *
+from backbones import *
 
 
 class Network(object):
