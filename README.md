@@ -103,7 +103,7 @@ Following the training, predictions have been made on a receipt not from the tra
 
 ## Results
 
-### Metricts
+### Metrics
 
 #### in progress ...
 
