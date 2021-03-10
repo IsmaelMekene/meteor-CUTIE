@@ -72,7 +72,7 @@ In this project, attempt had been made to reach a successful performance of Dens
 `Train_loss`             |  `Valid_loss`
 :-------------------------:|:-------------------------:
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/training_loss_densaspp.svg)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/validation_loss_denseaspp.svg)
-
+ 
 #### predictions
 
 Following the training, although it was obvious that the model would not perform well. a prediction has been made for the sake of the evaluation with PSPNet.
