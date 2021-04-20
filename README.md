@@ -32,7 +32,7 @@ In addition, getting the precised positions of the zones of interest was not an 
 ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087img.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/1087mask.png)  |  ![](https://github.com/IsmaelMekene/meteor-CUTIE/blob/main/data/over1087.png)
 
 
-### Gridn
+### Grid
 
 As this project is at the time, a Spatial and Semantic segmentation, It was quite obvious that the classical image segmentation technics would not be perfect. In order to enconter that, the notion of Semantic had to be introduced to make the model more robust in predicting our zone of interest.
 The bright ideal of the grid was mentionned in the original  [CUTIE paper](https://arxiv.org/abs/1903.12363v4). The concept is simplify to the fact that:
