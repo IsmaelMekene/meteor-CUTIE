@@ -95,7 +95,7 @@ PSPNet is a semantic segmentation model that utilises a pyramid parsing module t
 
 #### predictions
 
-Following the training, predictions have been made on a receipt not from the training dataset. It was visivle that the model had learnt to predict the `zone of interest` (In this case `total amount`).
+Following the training, predictions have been made on a receipt not from the training dataset. It was visible that the model had learnt to predict the `zone of interest` (In this case `total amount`).
 
   `new_receipt`             |  `prediction`             |  `reconstruction`
 :-------------------------:|:-------------------------:|:-------------------------:
